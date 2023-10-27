@@ -2,6 +2,11 @@ plugins {
     id 'com.android.application'
 }
 
+Properties properties = new Properties()
+if (rootProject.file("local.properties").exists()) {
+    properties.load(rootProject.file("local.properties").newDataInputStream())
+}
+
 android {
     namespace 'com.lxquyen.billing'
     compileSdk 33
