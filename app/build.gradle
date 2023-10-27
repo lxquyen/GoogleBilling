@@ -12,7 +12,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.lxquyen.billing"
+        applicationId properties.getProperty("applicationId", "com.lxquyen.billing")
         minSdk 28
         targetSdk 33
         versionCode 1
@@ -21,8 +21,22 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildTypes {
+    signingConfigs {
         release {
+            keyAlias properties.getProperty("keyAlias","")
+            keyPassword properties.getProperty("keyPassword","")
+            storeFile file(properties.getProperty("storeFile",""))
+            storePassword properties.getProperty("storePassword","")
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.release
+        }
+
+        release {
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
